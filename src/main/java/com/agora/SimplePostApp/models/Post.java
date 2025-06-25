@@ -32,7 +32,4 @@ public class Post {
         this.question = question;
         this.owner = owner;
     }
-
-    
-
 }
