@@ -19,6 +19,20 @@ public class Post {
     private Long id;
     private String content;
     private String question;
-    private User owner;
+    private final User owner;
+    private Integer likes;
+
+    public Post(User owner) {
+        this.owner = owner;
+    }
+
+    public Post(Long id, String content, String question, User owner) {
+        this.id = id;
+        this.content = content;
+        this.question = question;
+        this.owner = owner;
+    }
+
+    
 
 }
