@@ -1,10 +1,6 @@
 package com.agora.SimplePostApp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,12 +15,10 @@ public class Post {
     private Long id;
     private String content;
     private String question;
+    @ManyToOne
+    @JoinColumn(name = "tb_user")
     private final User owner;
     private Integer likes;
-
-    public Post(User owner) {
-        this.owner = owner;
-    }
 
     public Post(Long id, String content, String question, User owner) {
         this.id = id;
@@ -32,4 +26,9 @@ public class Post {
         this.question = question;
         this.owner = owner;
     }
+
+    public Post() {
+        this.owner = null;
+    }
+
 }
