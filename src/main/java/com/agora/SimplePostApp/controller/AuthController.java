@@ -1,9 +1,11 @@
 package com.agora.SimplePostApp.controller;
 
 import com.agora.SimplePostApp.dto.AuthDTO;
+import com.agora.SimplePostApp.dto.LoginReponseDTO;
 import com.agora.SimplePostApp.dto.RegisterDTO;
 import com.agora.SimplePostApp.models.User;
 import com.agora.SimplePostApp.repository.UserRepository;
+import com.agora.SimplePostApp.service.TokenService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,12 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     private final UserRepository userRepository;
+    final TokenService tokenService;
 
-    public AuthController(AuthenticationManager authenticationManager,  UserRepository userRepository) {
+    public AuthController(AuthenticationManager authenticationManager,  UserRepository userRepository,  TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
 
 
@@ -34,7 +38,9 @@ public class AuthController {
         var userPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(userPassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken( (User) auth.getPrincipal());
+
+        return new ResponseEntity<>(new LoginReponseDTO(token), HttpStatus.OK);
     }
 
     @PostMapping("/register")

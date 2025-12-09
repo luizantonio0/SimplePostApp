@@ -1,3 +1,9 @@
+api:
+  name: "Simple_Post_App_API"
+  security:
+    token:
+      secret: "${JWT_SECRET}"
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
