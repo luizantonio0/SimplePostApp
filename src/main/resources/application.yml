@@ -6,12 +6,12 @@ api:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: '050306'
+    url: jdbc:mysql://localhost:3308/simplepostapp?useSSL=false&serverTimezone=UTC
+    username: root
+    password:
 
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
